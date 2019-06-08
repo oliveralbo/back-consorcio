@@ -6,7 +6,7 @@ const consultLogin = async req => {
 
   return new Promise((resolve, reject) => {
     conec.query(
-      `SELECT * FROM ${tabla} WHERE user_name= '${req.usuario}' and pasword='${
+      `SELECT * FROM ${tabla} WHERE mail= '${req.mail}' and pasword='${
         req.password
       }'`,
       (error, result) => {
