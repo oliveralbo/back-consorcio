@@ -1,6 +1,6 @@
 import express from "express";
 import "babel-polyfill";
-import getAll from "./api/getUser";
+import getAllDptos from "./api/getDptos";
 import insertUser from "./api/insertUser";
 import respuestaLogin from "./api/login";
 import bodyParser from "body-parser";
@@ -32,7 +32,7 @@ router.post("/insertarUsuario", async (req, res) => {
       try {
         objeto = JSON.parse(body);
         let retorno = await insertUser(objeto);
-        res.send(JSON.stringify(retorno) + "ok");
+        res.send("usuario y departamento ok");
       } catch (error) {
         console.error(error);
       }
@@ -57,6 +57,12 @@ router.post("/login", async (req, res) => {
       }
     });
   }
+});
+
+router.get("/getDptos", async (req, res) => {
+  console.log(req.originalUrl);
+  const retorno = await getAllDptos();
+  res.send(retorno);
 });
 
 // router.get("/traerUsuarios", async (req, res) => {

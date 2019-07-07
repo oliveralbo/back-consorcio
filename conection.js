@@ -5,7 +5,7 @@ const Conexion = () => {
     host: "localhost",
     user: "root",
     password: "",
-    database: "login",
+    database: "consorcio",
     port: 3306
   });
 

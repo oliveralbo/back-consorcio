@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-06-2019 a las 01:54:07
+-- Tiempo de generación: 07-07-2019 a las 15:59:47
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -30,10 +30,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `departamentos` (
   `id` int(11) NOT NULL,
-  `piso` int(10) DEFAULT NULL,
-  `departamento` varchar(45) DEFAULT NULL,
+  `piso` varchar(2) CHARACTER SET utf16 COLLATE utf16_spanish_ci DEFAULT NULL,
+  `departamento` varchar(3) CHARACTER SET utf16 COLLATE utf16_spanish_ci DEFAULT NULL,
+  `pisoYDpto` varchar(10) CHARACTER SET utf16 COLLATE utf16_spanish_ci NOT NULL,
   `ambientes` int(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `departamentos`
+--
+
+INSERT INTO `departamentos` (`id`, `piso`, `departamento`, `pisoYDpto`, `ambientes`) VALUES
+(26, 'PB', '1', 'PB-1', NULL),
+(27, 'PB', '2', 'PB-2', NULL),
+(28, 'PB', '3', 'PB-3', NULL),
+(29, '1', '4', '1-4', NULL),
+(34, 'PB', '5', 'PB-5', 4);
 
 -- --------------------------------------------------------
 
@@ -90,15 +102,16 @@ CREATE TABLE `salidas` (
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
+  `nombres` varchar(45) NOT NULL,
+  `apellidos` varchar(45) NOT NULL,
   `departamento_id` int(45) NOT NULL,
-  `telefono` int(11) DEFAULT NULL,
-  `celular` int(11) DEFAULT NULL,
-  `mail` varchar(45) DEFAULT NULL,
+  `telefono_fijo` int(11) DEFAULT NULL,
+  `telefono_celular` int(11) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `password` varchar(50) NOT NULL,
-  `categoria` tinyint(1) DEFAULT NULL,
-  `creado` varchar(70) NOT NULL
+  `tipo_usuario` int(20) DEFAULT NULL,
+  `created_at` varchar(70) NOT NULL,
+  `updated_at` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -137,8 +150,7 @@ ALTER TABLE `salidas`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `departamento_id` (`departamento_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -148,7 +160,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `entradas`
@@ -177,12 +189,6 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `departamentos`
---
-ALTER TABLE `departamentos`
-  ADD CONSTRAINT `departamentos_ibfk_1` FOREIGN KEY (`id`) REFERENCES `usuarios` (`departamento_id`);
 
 --
 -- Filtros para la tabla `entradas`

@@ -4,34 +4,37 @@ import Conexion from "../conection";
 
 const postUser = async req => {
   let conec = await Conexion();
+
+  let created = new Date();
   let query = conec.query(
     //Este mismo proceso sirve tanto para UPDATE como DELETE.
-    "INSERT INTO usuarios(nombre, apellido, departamento_id, telefono,celular, email, categoria, create) VALUES(?, ?, ?,?,?, ? ,? ,?)",
+    "INSERT INTO usuarios(nombres, apellidos, departamento_id, telefono_fijo ,telefono_celular, email, tipo_usuario, created_at) VALUES(?, ?, ?,?,?, ? ,? ,?)",
     [
-      req.nombre,
-      req.apellido,
-      req.departamento,
-      req.telefono,
-      req.celular,
+      req.nombres,
+      req.apellidos,
+      req.departamento_id,
+      req.telefono_fijo,
+      req.telefono_celular,
       req.email,
-      req.categoria,
-      req.creado
+      req.tipo_usuario,
+      created
+      // req.created_at
     ],
     function(error, result) {
       if (error) {
         throw console.log(error);
       } else {
-        console.log(result + "insert ok");
-        conec.end();
+        console.log("insert ok" + result.insertId);
       }
     }
   );
+
+  conec.end();
 };
 
 // Async / Await
 const insertUser = async req => {
   let retorno;
-
   try {
     retorno = await postUser(req);
   } catch (err) {
@@ -42,10 +45,3 @@ const insertUser = async req => {
 };
 
 export default insertUser;
-
-/*
-// Promise
-getPersonas()
-  .then(personas => console.info(personas))
-  .catch(error => console.info(error));
-*/
