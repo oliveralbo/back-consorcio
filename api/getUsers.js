@@ -23,19 +23,17 @@ const getPersonas = async () => {
 };
 
 // Async / Await
-const getAll = async () => {
+const getAllUsers = async () => {
   let personas;
-
   try {
     personas = await getPersonas();
   } catch (err) {
     console.info(err);
   }
-
   return personas;
 };
 
-export default getAll;
+export default getAllUsers;
 
 /*
 // Promise

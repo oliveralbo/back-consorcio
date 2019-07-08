@@ -24,12 +24,12 @@ const postUser = async req => {
       if (error) {
         throw console.log(error);
       } else {
-        console.log("insert ok" + result.insertId);
+        return "insert ok " + result.insertId;
       }
     }
   );
-
   conec.end();
+  return query;
 };
 
 // Async / Await
@@ -41,7 +41,7 @@ const insertUser = async req => {
     console.info(err);
   }
 
-  return retorno;
+  return retorno.values;
 };
 
 export default insertUser;

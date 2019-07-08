@@ -2,9 +2,11 @@ import express from "express";
 import "babel-polyfill";
 import getAllDptos from "./api/getDptos";
 import insertUser from "./api/insertUser";
+import getAllUsers from "./api/getUsers";
 import respuestaLogin from "./api/login";
 import bodyParser from "body-parser";
 import cors from "cors";
+import routes from "./routes/routes";
 
 const app = express();
 const router = new express.Router();
@@ -21,6 +23,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+console.log(routes);
+
+// routes.postUser()
+
 router.post("/insertarUsuario", async (req, res) => {
   if (req.method === "POST") {
     let body = "";
@@ -32,7 +38,7 @@ router.post("/insertarUsuario", async (req, res) => {
       try {
         objeto = JSON.parse(body);
         let retorno = await insertUser(objeto);
-        res.send("usuario y departamento ok");
+        res.send(retorno);
       } catch (error) {
         console.error(error);
       }
@@ -65,11 +71,11 @@ router.get("/getDptos", async (req, res) => {
   res.send(retorno);
 });
 
-// router.get("/traerUsuarios", async (req, res) => {
-//   console.log(req.originalUrl);
-//   const retorno = await getAll();
-//   res.send(retorno);
-// });
+router.get("/getUsers", async (req, res) => {
+  console.log(req.originalUrl);
+  const retorno = await getAllUsers();
+  res.send(retorno);
+});
 
 app.use(router);
 
